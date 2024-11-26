@@ -1,6 +1,3 @@
-Here’s a `README.md` file that explains the code, provides instructions to compile and run it, and includes an overview of the program’s purpose.
-
----
 
 # **Lexical Analyzer in C**
 
@@ -130,12 +127,7 @@ Token: 15        Type: NUMBER
 2. **Expression Not Printing Correctly**
    - Ensure the expression is a valid mathematical expression with spaces separating each component.
 
----
 
-## **Contributing**
-If you’d like to improve the code or add features (e.g., support for floating-point numbers or new token types), feel free to fork this repository and submit a pull request.
-
----
 
 ## **License**
 This program is provided for educational purposes. Feel free to use, modify, and distribute it.
