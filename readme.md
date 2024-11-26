@@ -1,3 +1,4 @@
+
 # **Lexical Analyzer in C**
 
 This project is a simple **Lexical Analyzer** written in C. It takes a mathematical expression, processes it, and breaks it down into **tokens**, classifying each token into categories like **NUMBER**, **OPERATOR**, **IDENTIFIER**, or **BRACKET**.
@@ -166,8 +167,4 @@ const char expression[] = "your_expression_here";
     brew install gcc
     ```
 
----
 
-## **Conclusion**
-
-This program is a simple demonstration of how a lexical analyzer works. By modifying the input expression and observing the output, you can gain an understanding of tokenization and lexical analysis, which are key concepts in programming language design and compiler construction.
