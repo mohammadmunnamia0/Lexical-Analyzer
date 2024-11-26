@@ -1,10 +1,9 @@
 #include <stdio.h>
 
-
 int main() 
 {
-    // The expression to analyze
-    const char expression[] = "( 12 + x * ( y - 25 ) / z ) % 15";
+    // The expression to analyze (using 'sqrt' instead of '√')
+    const char expression[] = "Calculate=sqrt[{(((13*20)+50)-80)/2}]%2";
 
     printf("Analyzing Expression: %s\n\n", expression);
 
@@ -13,51 +12,58 @@ int main()
     {
         char ch = expression[i];
 
-        // Skip spaces
-        if (ch == ' ') 
-            {
-                i++;
-                continue;
-            }
-
-        // Check for parentheses
-        if (ch == '(' || ch == ')')
-            {
-                printf("Token: %c\tType: PARENTHESIS\n", ch);
-            }
+        // Check for parentheses, braces, or brackets
+        if (ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == '[' || ch == ']') 
+        {
+            printf("Token: %c\tType: BRACE_OR_PARENTHESIS_OR_BRACKET\n", ch);
+        }
         // Check for operators
-        else if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%') 
-            {
-                printf("Token: %c\tType: OPERATOR\n", ch);
-            }
+        else if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' || ch == '=' || ch == ';') 
+        {
+            printf("Token: %c\tType: OPERATOR\n", ch);
+        }
+        // Check for 'sqrt' function
+        else if (ch == 's' && expression[i + 1] == 'q' && expression[i + 2] == 'r' && expression[i + 3] == 't') 
+        {
+            printf("Token: sqrt\tType: FUNCTION\n");
+            i += 3; // Skip the additional characters of 'sqrt'
+        }
         // Check for numbers
         else if (ch >= '0' && ch <= '9') 
-            {
-                printf("Token: %c", ch);
+        {
+            printf("Token: %c", ch);
+            i++;
+
+            while (expression[i] >= '0' && expression[i] <= '9') 
+            { // Handle multi-digit numbers
+                printf("%c", expression[i]);
                 i++;
-
-                while (expression[i] >= '0' && expression[i] <= '9') 
-
-                { // Handle multi-digit numbers
-                    printf("%c", expression[i]);
-                    i++;
-                }
-
-                printf("\tType: NUMBER\n");
-                continue; // Skip increment at the end of the loop
             }
 
-        // Check for identifiers (letters like x, y, z)
+            printf("\tType: NUMBER\n");
+            continue; // Skip increment at the end of the loop
+        }
+        // Check for identifiers (letters like Calculate)
         else if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) 
-            {
-                printf("Token: %c\tType: IDENTIFIER\n", ch);
+        {
+            printf("Token: %c", ch);
+            i++;
+
+            while ((expression[i] >= 'A' && expression[i] <= 'Z') || 
+                   (expression[i] >= 'a' && expression[i] <= 'z')) 
+            { // Handle multi-character identifiers
+                printf("%c", expression[i]);
+                i++;
             }
 
+            printf("\tType: IDENTIFIER\n");
+            continue; // Skip increment at the end of the loop
+        }
         // Handle unknown characters
-        else
-            {
-                printf("Token: %c\tType: UNKNOWN\n", ch);
-            }
+        else 
+        {
+            printf("Token: %c\tType: UNKNOWN\n", ch);
+        }
 
         i++; // Move to the next character
     }

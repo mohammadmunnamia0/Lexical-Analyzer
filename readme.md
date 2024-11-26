@@ -1,33 +1,39 @@
-Here’s a `README.md` file that explains the code, provides instructions to compile and run it, and includes an overview of the program’s purpose.
-
----
-
 # **Lexical Analyzer in C**
 
-This program demonstrates a simple **Lexical Analyzer** in C. It processes a mathematical expression and breaks it into **tokens**, categorizing each token into a type such as **NUMBER**, **OPERATOR**, **IDENTIFIER**, or **PARENTHESIS**.
+This project is a simple **Lexical Analyzer** written in C. It takes a mathematical expression, processes it, and breaks it down into **tokens**, classifying each token into categories like **NUMBER**, **OPERATOR**, **IDENTIFIER**, or **BRACKET**.
 
 ---
 
 ## **Program Description**
 
 ### **What is a Lexical Analyzer?**
-A **Lexical Analyzer** is a part of a compiler or interpreter that processes input code or expressions and divides them into small meaningful components called **tokens**. 
 
-For example, in the expression:
+A **Lexical Analyzer** is a fundamental component of compilers or interpreters. It scans the input code or expressions and converts them into a sequence of **tokens**, which are the smallest units of meaning. 
+
+For instance, consider the expression:
 
 ```
-( 12 + x * ( y - 25 ) / z ) % 15
+Calculate=√[{(((13*20)+50)-80)/2}]%2
 ```
 
-The tokens would be:
+The tokens are:
 
-- **Token**: `(`, **Type**: `PARENTHESIS`
-- **Token**: `12`, **Type**: `NUMBER`
-- **Token**: `+`, **Type**: `OPERATOR`
-- and so on...
+- **Token**: `Calculate`, **Type**: `IDENTIFIER`
+- **Token**: `=`, **Type**: `OPERATOR`
+- **Token**: `√`, **Type**: `FUNCTION`
+- **Token**: `[`, **Type**: `BRACKET`
+- ... and so on.
 
 ### **Purpose of This Program**
-This program analyzes a given expression and prints each token along with its type in a structured format. It is designed for **beginners in programming** to understand the basics of lexical analysis.
+
+This program demonstrates the basic operation of a lexical analyzer. It identifies:
+- **Identifiers** (e.g., `Calculate`, `x`, `y`).
+- **Numbers** (e.g., `13`, `20`, `50`).
+- **Operators** (e.g., `+`, `-`, `*`, `/`, `%`).
+- **Brackets and Parentheses** (e.g., `[`, `]`, `{`, `}`).
+- **Functions** (e.g., `√`).
+
+It provides a foundational understanding for students and beginners in programming.
 
 ---
 
@@ -35,16 +41,16 @@ This program analyzes a given expression and prints each token along with its ty
 
 ### **Requirements**
 - A C compiler (e.g., GCC).
-- A terminal or IDE to run the program.
+- A terminal or IDE (such as Visual Studio Code or Code::Blocks).
 
 ### **Steps to Compile and Run**
 1. Save the code in a file named `lexical_analyzer.c`.
-2. Open a terminal and navigate to the folder where the file is saved.
+2. Open a terminal and navigate to the directory where the file is saved.
 3. Compile the program using the following command:
    ```bash
    gcc lexical_analyzer.c -o lexical_analyzer
    ```
-4. Run the compiled program:
+4. Run the program with:
    ```bash
    ./lexical_analyzer
    ```
@@ -54,35 +60,47 @@ This program analyzes a given expression and prints each token along with its ty
 ## **Input and Output**
 
 ### **Input**
-The input is hardcoded in the program. For this example, the expression is:
+The input is hardcoded in the program. The default example expression is:
 
 ```
-( 12 + x * ( y - 25 ) / z ) % 15
+Calculate=√[{(((13*20)+50)-80)/2}]%2
 ```
 
-You can modify the input expression by changing the value of the `expression` variable in the code.
+You can modify the expression by changing the `expression` variable in the code:
+```c
+const char expression[] = "your_expression_here";
+```
 
 ### **Output**
-The program will analyze the expression and produce the following output:
+The program tokenizes the input and produces output in this format:
 
 ```
-Analyzing Expression: ( 12 + x * ( y - 25 ) / z ) % 15
+Analyzing Expression: Calculate=√[{(((13*20)+50)-80)/2}]%2
 
-Token: (         Type: PARENTHESIS
-Token: 12        Type: NUMBER
-Token: +         Type: OPERATOR
-Token: x         Type: IDENTIFIER
-Token: *         Type: OPERATOR
-Token: (         Type: PARENTHESIS
-Token: y         Type: IDENTIFIER
-Token: -         Type: OPERATOR
-Token: 25        Type: NUMBER
-Token: )         Type: PARENTHESIS
-Token: /         Type: OPERATOR
-Token: z         Type: IDENTIFIER
-Token: )         Type: PARENTHESIS
-Token: %         Type: OPERATOR
-Token: 15        Type: NUMBER
+Token: Calculate	Type: IDENTIFIER
+Token: =         	Type: OPERATOR
+Token: √         	Type: FUNCTION
+Token: [         	Type: BRACKET
+Token: {         	Type: BRACE
+Token: (         	Type: PARENTHESIS
+Token: (         	Type: PARENTHESIS
+Token: (         	Type: PARENTHESIS
+Token: 13        	Type: NUMBER
+Token: *         	Type: OPERATOR
+Token: 20        	Type: NUMBER
+Token: )         	Type: PARENTHESIS
+Token: +         	Type: OPERATOR
+Token: 50        	Type: NUMBER
+Token: )         	Type: PARENTHESIS
+Token: -         	Type: OPERATOR
+Token: 80        	Type: NUMBER
+Token: )         	Type: PARENTHESIS
+Token: /         	Type: OPERATOR
+Token: 2         	Type: NUMBER
+Token: }         	Type: BRACE
+Token: ]         	Type: BRACKET
+Token: %         	Type: OPERATOR
+Token: 2         	Type: NUMBER
 ```
 
 ---
@@ -90,56 +108,66 @@ Token: 15        Type: NUMBER
 ## **Code Overview**
 
 ### **Key Features**
-- **Tokenization**:
-  - Numbers (`12`, `25`, `15`) are identified as **NUMBER**.
-  - Operators (`+`, `*`, `/`, `%`, `-`) are identified as **OPERATOR**.
-  - Parentheses (`(`, `)`) are identified as **PARENTHESIS**.
-  - Letters (`x`, `y`, `z`) are identified as **IDENTIFIER**.
-- **Input Handling**: The program ignores spaces and groups multi-digit numbers (e.g., `25`).
+1. **Token Types**:
+   - Numbers are categorized as **NUMBER**.
+   - Mathematical operators like `+`, `-`, `*`, `/`, `%`, and `=` are identified as **OPERATOR**.
+   - Brackets, braces, and parentheses (`[`, `{`, `(`) are recognized as **BRACKETS**, **BRACES**, and **PARENTHESES** respectively.
+   - Identifiers like `Calculate` are labeled as **IDENTIFIER**.
+   - The square root (`√`) is classified as **FUNCTION**.
+
+2. **Multi-digit Number Support**:
+   - The program can handle numbers like `13` and `20` without splitting them into separate tokens.
+
+3. **Flexible Expression Parsing**:
+   - The code can be updated easily to handle new expressions.
 
 ### **How It Works**
-1. The program reads the hardcoded expression.
-2. It loops through each character in the expression:
-   - Checks if the character is a number, operator, parenthesis, or identifier.
-   - Prints the token and its type.
-3. Outputs all tokens with their respective types.
+1. **Expression Analysis**:
+   - The program reads the expression character by character.
+   - It identifies each token based on character type (e.g., digits, letters, operators, etc.).
+2. **Token Classification**:
+   - Tokens are categorized and printed with their type.
 
 ---
 
 ## **Customizing the Code**
 
-- To analyze a different expression:
-  - Change the value of the `expression` variable in the program:
-    ```c
-    const char expression[] = "( your expression here )";
-    ```
-- Examples of valid expressions:
-  - `( 5 + a * ( b - 10 ) / c ) % 3`
-  - `x + y * 12 / ( 5 - z )`
+### Modify the Input Expression
+To analyze a different expression, update the `expression` variable in the code:
+```c
+const char expression[] = "your_expression_here";
+```
+
+### Examples:
+1. `x+y*z/(a-3)`
+2. `(12 + 25) * (x / y) % 5`
 
 ---
 
 ## **Common Errors and Solutions**
 
-1. **Error: `gcc` not found**
-   - Ensure you have GCC installed. Use:
-     ```bash
-     sudo apt install gcc       # For Ubuntu/Debian
-     brew install gcc           # For macOS
-     ```
-2. **Expression Not Printing Correctly**
-   - Ensure the expression is a valid mathematical expression with spaces separating each component.
+### Error: `Token: � Type: UNKNOWN`
+- This occurs when the program encounters non-ASCII characters like `√`.
+- Solution:
+  - Use `sqrt` as a placeholder for the square root symbol.
+  - Modify the expression to:
+    ```c
+    const char expression[] = "Calculate=sqrt[{(((13*20)+50)-80)/2}]%2";
+    ```
+
+### Error: `gcc not found`
+- Ensure GCC is installed:
+  - On Ubuntu/Debian:
+    ```bash
+    sudo apt install gcc
+    ```
+  - On macOS:
+    ```bash
+    brew install gcc
+    ```
 
 ---
 
-## **Contributing**
-If you’d like to improve the code or add features (e.g., support for floating-point numbers or new token types), feel free to fork this repository and submit a pull request.
+## **Conclusion**
 
----
-
-## **License**
-This program is provided for educational purposes. Feel free to use, modify, and distribute it.
-
----
-
-This `README.md` provides all necessary information for students to run and understand the program. Let me know if you'd like additional details! 😊
+This program is a simple demonstration of how a lexical analyzer works. By modifying the input expression and observing the output, you can gain an understanding of tokenization and lexical analysis, which are key concepts in programming language design and compiler construction.
